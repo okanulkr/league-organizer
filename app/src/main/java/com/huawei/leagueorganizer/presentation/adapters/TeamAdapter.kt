@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.huawei.leagueorganizer.R
 import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.squareup.picasso.Picasso
 
 class TeamAdapter(private val teamList: List<TeamEntity>) :
     RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
@@ -36,6 +37,7 @@ class TeamAdapter(private val teamList: List<TeamEntity>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = teamList[position].name
+        Picasso.get().load(teamList[position].logo).into(viewHolder.imageView)
     }
 
     override fun getItemCount() = teamList.size

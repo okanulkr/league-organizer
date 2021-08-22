@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.huawei.leagueorganizer.presentation.adapters.TeamAdapter
 import com.huawei.leagueorganizer.presentation.viewmodel.MatchViewModel
 import com.huawei.leagueorganizer.presentation.viewmodel.TeamViewModel
@@ -32,12 +33,12 @@ class MainActivity : AppCompatActivity() {
             print(it)
         }
 
-        findViewById<TextView>(R.id.tv).setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             teamViewModel.deleteTeams()
             teamViewModel.refresh()
         }
 
-        findViewById<TextView>(R.id.tv).setOnLongClickListener {
+        findViewById<FloatingActionButton>(R.id.fab).setOnLongClickListener {
             teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
             true
         }
