@@ -7,15 +7,19 @@ import com.huawei.leagueorganizer.data.datasource.performGetOperation
 import com.huawei.leagueorganizer.utils.Constants
 import javax.inject.Inject
 
-class TeamRepository @Inject constructor(private val dao: TeamDAO, private val remoteDatasource: TeamRemoteDatasource) {
+class TeamRepository @Inject constructor(
+    private val dao: TeamDAO,
+    private val remoteDatasource: TeamRemoteDatasource
+) {
 
-    val teams = performGetOperation (
+    val teams = performGetOperation(
         databaseQuery = { dao.getAllTeams() },
-        networkCall = { getAllTeamsFromRemoteDatasource() }, // TODO parameterize
+        networkCall = { getAllTeamsFromRemoteDatasource(Constants.TEAM_COUNT) },
         saveCallResult = { insertTeams(it) }
     )
 
-    suspend fun getAllTeamsFromRemoteDatasource() = remoteDatasource.getAllTeams(Constants.TEAM_COUNT) // TODO parameterize
+    suspend fun getAllTeamsFromRemoteDatasource(count: Int) =
+        remoteDatasource.getAllTeams(count)
 
     suspend fun insertTeams(teams: List<TeamEntity>) = dao.insertTeams(teams)
 

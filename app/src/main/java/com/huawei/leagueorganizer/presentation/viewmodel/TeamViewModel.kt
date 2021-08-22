@@ -1,15 +1,17 @@
 package com.huawei.leagueorganizer.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.huawei.leagueorganizer.data.entity.TeamEntity
 import com.huawei.leagueorganizer.data.repository.TeamRepository
+import com.huawei.leagueorganizer.utils.Preferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
+class TeamViewModel @Inject constructor(private val repository: TeamRepository, application: Application) : AndroidViewModel(application) {
 
     val teams = repository.teams
 
@@ -17,8 +19,9 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
         repository.deleteTeams()
     }
 
-    fun refresh() = viewModelScope.launch {
-        repository.getAllTeamsFromRemoteDatasource().data?.let { insertTeams(it) }
+    fun refresh(count: Int) = viewModelScope.launch {
+        Preferences.setTeamCount(getApplication(), count)
+        repository.getAllTeamsFromRemoteDatasource(count).data?.let { insertTeams(it) }
     }
 
     private fun insertTeams(teams: List<TeamEntity>) = viewModelScope.launch {

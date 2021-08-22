@@ -7,10 +7,15 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.huawei.leagueorganizer.presentation.adapters.TeamAdapter
 import com.huawei.leagueorganizer.presentation.viewmodel.MatchViewModel
 import com.huawei.leagueorganizer.presentation.viewmodel.TeamViewModel
+import com.huawei.leagueorganizer.utils.Constants
+import com.huawei.leagueorganizer.utils.Preferences
 import dagger.hilt.android.AndroidEntryPoint
+import it.sephiroth.android.library.numberpicker.NumberPicker
+import it.sephiroth.android.library.numberpicker.doOnProgressChanged
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -21,12 +26,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        teamViewModel.deleteTeams()
+        findViewById<NumberPicker>(R.id.number_picker).setProgress(Preferences.getTeamCount(this))
+
+//        teamViewModel.deleteTeams()
         teamViewModel.teams.observe(this) { resource ->
             findViewById<RecyclerView>(R.id.rv_teams).adapter = resource.data?.let { teamList ->
                 TeamAdapter(teamList)
             }
-            findViewById<RecyclerView>(R.id.rv_teams).layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+            findViewById<RecyclerView>(R.id.rv_teams).layoutManager =
+                GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         }
 
         matchViewModel.matches.observe(this) {
@@ -34,13 +42,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            teamViewModel.deleteTeams()
-            teamViewModel.refresh()
+            teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
         }
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnLongClickListener {
-            teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
-            true
+        findViewById<NumberPicker>(R.id.number_picker).doOnProgressChanged { numberPicker, progress, formUser ->
+
+            if (progress % 2 != 0) {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Count must be even",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                numberPicker.setProgress(progress + 1)
+            } else {
+                teamViewModel.deleteTeams()
+                teamViewModel.refresh(progress)
+            }
         }
     }
 }
