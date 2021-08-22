@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.huawei.leagueorganizer.presentation.adapters.TeamAdapter
 import com.huawei.leagueorganizer.presentation.viewmodel.MatchViewModel
 import com.huawei.leagueorganizer.presentation.viewmodel.TeamViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,11 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         teamViewModel.deleteTeams()
-        teamViewModel.teams.observe(this) {
-            findViewById<TextView>(R.id.tv).text = ""
-            it.data?.forEach { te ->
-                findViewById<TextView>(R.id.tv).append(te.name + "\n")
+        teamViewModel.teams.observe(this) { resource ->
+            findViewById<RecyclerView>(R.id.rv_teams).adapter = resource.data?.let { teamList ->
+                TeamAdapter(teamList)
             }
+            findViewById<RecyclerView>(R.id.rv_teams).layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
         }
 
         matchViewModel.matches.observe(this) {

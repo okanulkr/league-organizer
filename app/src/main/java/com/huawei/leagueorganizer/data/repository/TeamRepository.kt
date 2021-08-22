@@ -11,11 +11,11 @@ class TeamRepository @Inject constructor(private val dao: TeamDAO, private val r
 
     val teams = performGetOperation (
         databaseQuery = { dao.getAllTeams() },
-        networkCall = { remoteDatasource.getAllTeams(Constants.TEAM_COUNT) }, // TODO parameterize
-        saveCallResult = { dao.insertTeams(it) }
+        networkCall = { getAllTeamsFromRemoteDatasource() }, // TODO parameterize
+        saveCallResult = { insertTeams(it) }
     )
 
-    suspend fun refresh() = remoteDatasource.getAllTeams(Constants.TEAM_COUNT)
+    suspend fun getAllTeamsFromRemoteDatasource() = remoteDatasource.getAllTeams(Constants.TEAM_COUNT) // TODO parameterize
 
     suspend fun insertTeams(teams: List<TeamEntity>) = dao.insertTeams(teams)
 

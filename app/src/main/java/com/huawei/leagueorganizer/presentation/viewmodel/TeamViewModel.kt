@@ -18,7 +18,7 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
     }
 
     fun refresh() = viewModelScope.launch {
-        repository.refresh().data?.let { insertTeams(it) }
+        repository.getAllTeamsFromRemoteDatasource().data?.let { insertTeams(it) }
     }
 
     private fun insertTeams(teams: List<TeamEntity>) = viewModelScope.launch {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LeagueOrganizer</string>
+    <string name="placeholder_team_name">FC Barcelona</string>
 </resources>
