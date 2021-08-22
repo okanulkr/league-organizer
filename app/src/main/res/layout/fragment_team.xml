@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/ib_settings"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_settings_24" />
+
+    <it.sephiroth.android.library.numberpicker.NumberPicker
+        style="@style/NumberPicker.Filled"
+        app:picker_max="100"
+        app:picker_min="2"
+        android:progress="20"
+        app:picker_stepSize="2"
+        app:picker_tracker="exponential"
+        app:picker_orientation="vertical"
+        android:id="@+id/number_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_teams"
+        android:layout_below="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_sports_soccer"
+        android:tooltipText="@string/draw_fixture"
+        android:contentDescription="@string/draw_fixture"
+        android:layout_margin="16dp" />
+
+</RelativeLayout>

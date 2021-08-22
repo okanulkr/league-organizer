@@ -13,6 +13,9 @@ buildscript {
 
         // dependencies added after project template generated
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+
+        // Navigation Safe Args
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
     }
 }
 
