@@ -2,7 +2,7 @@ package com.huawei.leagueorganizer.startup
 
 import android.content.Context
 import androidx.room.Room
-import com.huawei.leagueorganizer.data.LeagueOrganizerDatabase
+import com.huawei.leagueorganizer.data.datasource.local.LeagueOrganizerDatabase
 import com.huawei.leagueorganizer.data.dao.MatchDAO
 import com.huawei.leagueorganizer.data.dao.TeamDAO
 import dagger.Module
