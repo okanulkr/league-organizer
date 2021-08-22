@@ -20,7 +20,7 @@
     <it.sephiroth.android.library.numberpicker.NumberPicker
         style="@style/NumberPicker.Filled"
         app:picker_max="100"
-        app:picker_min="0"
+        app:picker_min="2"
         android:progress="20"
         app:picker_stepSize="2"
         app:picker_tracker="exponential"
@@ -37,10 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="20 teams at Huawei Co. Ltd."/>
-
-<!--    TODO bind view -->
+        android:layout_marginTop="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_teams"
