@@ -11,7 +11,7 @@ import com.huawei.leagueorganizer.data.entity.MatchEntity
 interface MatchDAO {
 
     @Insert
-    suspend fun insertMatches(teams: List<MatchEntity>)
+    suspend fun insertMatches(teams: Array<MatchEntity?>)
 
     @Query("DELETE FROM MatchEntity")
     suspend fun deleteMatches()

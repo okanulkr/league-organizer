@@ -8,7 +8,7 @@ class MatchRepository @Inject constructor(private val dao: MatchDAO) {
 
     val matches = dao.getAllMatches()
 
-    suspend fun insertMatches(matches: List<MatchEntity>) = dao.insertMatches(matches)
+    suspend fun insertMatches(matches: Array<MatchEntity?>) = dao.insertMatches(matches)
 
     suspend fun deleteMatches() = dao.deleteMatches()
 }
