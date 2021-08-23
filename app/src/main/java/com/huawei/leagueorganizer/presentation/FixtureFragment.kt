@@ -19,14 +19,14 @@ class FixtureFragment : Fragment(R.layout.fragment_fixture) {
         super.onViewCreated(view, savedInstanceState)
 
         matchViewModel.matches.observe(viewLifecycleOwner) { matchList ->
-            val grouped = matchList.groupBy {
+            val grouped = matchList.sortedBy { it.week }.groupBy {
                 it.week
             }
 
             val fragments = mutableListOf<Fragment>()
 
             grouped.forEach { (t, u) ->
-                fragments.add(WeekFragment(t, u))
+                fragments.add(WeekFragment(t + 1, u))
             }
 
             val adapter = ViewPagerAdapter(fragments, requireActivity().supportFragmentManager, lifecycle)

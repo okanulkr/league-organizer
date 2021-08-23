@@ -5,4 +5,5 @@
 
     <!--Shared Preferences-->
     <string name="team_count">team_count</string>
+    <string name="versus">V</string>
 </resources>

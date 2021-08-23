@@ -39,10 +39,6 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
 
-            matchViewModel.matches.observe(viewLifecycleOwner) {
-                print(it)
-            }
-
             fab.setOnClickListener {
                 teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
                 findNavController().navigate(TeamFragmentDirections.actionTeamFragmentToFixtureFragment())
@@ -52,15 +48,19 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
 
                 if (progress % 2 != 0) {
                     Snackbar.make(
-                        findViewById(android.R.id.content),
+                        view,
                         "Count must be even",
                         Snackbar.LENGTH_SHORT
                     ).show()
                     numberPicker.setProgress(progress + 1)
                 } else {
-                    teamViewModel.deleteTeams()
                     teamViewModel.refresh(progress)
                 }
+            }
+
+            if (Preferences.isFirstRun(requireContext())){
+                Preferences.setFirstRun(requireContext(), false)
+                teamViewModel.refresh(number_picker.progress)
             }
         }
     }

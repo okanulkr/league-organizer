@@ -2,6 +2,7 @@ package com.huawei.leagueorganizer.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.huawei.leagueorganizer.data.entity.MatchEntity
 import com.huawei.leagueorganizer.data.entity.TeamEntity
 import com.huawei.leagueorganizer.data.repository.MatchRepository
 import com.huawei.leagueorganizer.utils.FixtureHelper
@@ -18,10 +19,16 @@ class MatchViewModel @Inject constructor(private val repository: MatchRepository
     fun generateFixture(teams: List<TeamEntity>) = viewModelScope.launch {
         repository.deleteMatches()
 
-        val fixture = FixtureHelper.generateFixture(teams)
+        val firstHalfFixture = FixtureHelper.generateFirstHalf(teams)
 
-        fixture.forEach {
-            repository.insertMatches(it)
+        val firstHalfMatches = arrayListOf<MatchEntity>()
+        firstHalfFixture.forEach { matchList ->
+            matchList.forEach { match ->
+                firstHalfMatches.add(match!!)
+            }
         }
+        val secondHalf = FixtureHelper.generateSecondHalf(firstHalfFixture.size, firstHalfMatches)
+        firstHalfMatches.addAll(secondHalf)
+        repository.insertMatches(firstHalfMatches)
     }
 }

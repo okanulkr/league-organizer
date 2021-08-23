@@ -15,16 +15,9 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository, 
 
     val teams = repository.teams
 
-    fun deleteTeams() = viewModelScope.launch {
-        repository.deleteTeams()
-    }
-
     fun refresh(count: Int) = viewModelScope.launch {
+        repository.deleteTeams()
         Preferences.setTeamCount(getApplication(), count)
-        repository.getAllTeamsFromRemoteDatasource(count).data?.let { insertTeams(it) }
-    }
-
-    private fun insertTeams(teams: List<TeamEntity>) = viewModelScope.launch {
-        repository.insertTeams(teams)
+        repository.getAllTeamsFromRemoteDatasource(count).data?.let { repository.insertTeams(it) }
     }
 }

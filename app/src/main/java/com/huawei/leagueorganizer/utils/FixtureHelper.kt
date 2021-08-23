@@ -8,7 +8,7 @@ object FixtureHelper {
     /**
      * Cyclic algorithm used in function below
      */
-    fun generateFixture(teamList: List<TeamEntity>): Array<Array<MatchEntity?>> {
+    fun generateFirstHalf(teamList: List<TeamEntity>): Array<Array<MatchEntity?>> {
         var teams = teamList.size
 
         if (teams % 2 == 1) {
@@ -60,6 +60,13 @@ object FixtureHelper {
         }
 
         return rounds
+    }
+
+    fun generateSecondHalf(weekCount: Int, matchList: List<MatchEntity>): List<MatchEntity> {
+        return matchList.map {
+            val flipped = flip(it)
+            MatchEntity(0, flipped.firstTeamId, flipped.secondTeamId, weekCount + flipped.week)
+        }
     }
 
     private fun flip(match: MatchEntity): MatchEntity =

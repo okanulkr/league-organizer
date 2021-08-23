@@ -3,8 +3,10 @@ package com.huawei.leagueorganizer.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.huawei.leagueorganizer.R
 import com.huawei.leagueorganizer.data.entity.MatchDetailView
+import com.huawei.leagueorganizer.presentation.adapters.MatchAdapter
 import kotlinx.android.synthetic.main.fragment_week.view.*
 
 class WeekFragment(private val week: Int, private val list: List<MatchDetailView>): Fragment(R.layout.fragment_week) {
@@ -12,10 +14,10 @@ class WeekFragment(private val week: Int, private val list: List<MatchDetailView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.tv_title.text = ""
+        val  title = "Week $week"
+        view.tv_title.text = title
 
-        list.forEach {
-            view.tv_title.append(it.firstTeamName + " " + it.secondTeamName + "\n")
-        }
+        view.rv_matches.adapter = MatchAdapter(list)
+        view.rv_matches.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 }
