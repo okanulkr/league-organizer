@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.huawei.leagueorganizer.R
-import com.huawei.leagueorganizer.data.entity.MatchDetailView
+import com.huawei.leagueorganizer.data.model.MatchDetailView
 import com.squareup.picasso.Picasso
 
 class MatchAdapter(private val teamList: List<MatchDetailView>) :

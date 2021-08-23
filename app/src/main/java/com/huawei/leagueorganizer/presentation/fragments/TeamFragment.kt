@@ -1,5 +1,6 @@
-package com.huawei.leagueorganizer.presentation
+package com.huawei.leagueorganizer.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,8 +11,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.huawei.leagueorganizer.R
 import com.huawei.leagueorganizer.presentation.adapters.TeamAdapter
-import com.huawei.leagueorganizer.presentation.viewmodel.MatchViewModel
-import com.huawei.leagueorganizer.presentation.viewmodel.TeamViewModel
+import com.huawei.leagueorganizer.presentation.viewmodels.MatchViewModel
+import com.huawei.leagueorganizer.presentation.viewmodels.TeamViewModel
 import com.huawei.leagueorganizer.utils.Preferences
 import com.skydoves.transformationlayout.TransformationLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,9 +29,15 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
         super.onViewCreated(view, savedInstanceState)
 
         view.run {
+            observeTeamData(this)
+            handleTransition()
+            listenNumberPicker(context, this)
+            refreshOnFirstLaunch(this)
+        }
+    }
 
-            number_picker.setProgress(Preferences.getTeamCount(context))
-
+    private fun observeTeamData(view: View) {
+        view.run {
             teamViewModel.teams.observe(viewLifecycleOwner) { resource ->
                 resource.data?.let { teamList ->
                     val title = "${teamList.size} teams at Huawei Co. Ltd."
@@ -40,18 +47,35 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
                 rv_teams.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
+        }
+    }
 
-            requireActivity().findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-                requireActivity().findViewById<TransformationLayout>(R.id.transformationLayout).startTransform()
-                teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
-                findNavController().navigate(TeamFragmentDirections.actionTeamFragmentToFixtureFragment())
+    private fun refreshOnFirstLaunch(view: View) {
+        view.run {
+            if (Preferences.isFirstRun(requireContext())) {
+                Preferences.setFirstRun(requireContext(), false)
+                teamViewModel.refresh(number_picker.progress)
             }
+        }
+    }
 
+    private fun handleTransition() {
+        requireActivity().findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            requireActivity().findViewById<TransformationLayout>(R.id.transformationLayout)
+                .startTransform()
+            teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
+            findNavController().navigate(TeamFragmentDirections.actionTeamFragmentToFixtureFragment())
+        }
+    }
+
+    private fun listenNumberPicker(context: Context, view: View) {
+        view.run {
+            number_picker.setProgress(Preferences.getTeamCount(context))
             number_picker.doOnProgressChanged { numberPicker, progress, _ ->
 
                 if (progress % 2 != 0) {
                     Snackbar.make(
-                        view,
+                        this,
                         "Count must be even",
                         Snackbar.LENGTH_SHORT
                     ).show()
@@ -59,11 +83,6 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
                 } else {
                     teamViewModel.refresh(progress)
                 }
-            }
-
-            if (Preferences.isFirstRun(requireContext())){
-                Preferences.setFirstRun(requireContext(), false)
-                teamViewModel.refresh(number_picker.progress)
             }
         }
     }

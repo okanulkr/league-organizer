@@ -1,7 +1,8 @@
-package com.huawei.leagueorganizer
+package com.huawei.leagueorganizer.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.huawei.leagueorganizer.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.huawei.leagueorganizer.data.model.TeamEntity
 
 @Dao
 interface TeamDAO {

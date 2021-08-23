@@ -1,9 +1,8 @@
-package com.huawei.leagueorganizer.presentation.viewmodel
+package com.huawei.leagueorganizer.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.huawei.leagueorganizer.data.entity.TeamEntity
 import com.huawei.leagueorganizer.data.repository.TeamRepository
 import com.huawei.leagueorganizer.utils.Preferences
 import dagger.hilt.android.lifecycle.HiltViewModel

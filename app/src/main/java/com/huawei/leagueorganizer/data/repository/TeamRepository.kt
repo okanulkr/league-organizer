@@ -2,7 +2,7 @@ package com.huawei.leagueorganizer.data.repository
 
 import com.huawei.leagueorganizer.data.dao.TeamDAO
 import com.huawei.leagueorganizer.data.datasource.remote.TeamRemoteDatasource
-import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.huawei.leagueorganizer.data.model.TeamEntity
 import com.huawei.leagueorganizer.data.datasource.performGetOperation
 import com.huawei.leagueorganizer.utils.Constants
 import javax.inject.Inject

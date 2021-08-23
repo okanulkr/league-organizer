@@ -1,6 +1,6 @@
 package com.huawei.leagueorganizer.data.datasource.remote
 
-import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.huawei.leagueorganizer.data.model.TeamEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

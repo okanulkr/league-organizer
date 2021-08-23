@@ -3,7 +3,6 @@ package com.huawei.leagueorganizer.data.datasource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.huawei.leagueorganizer.data.Resource
 import kotlinx.coroutines.Dispatchers
 
 fun <T, A> performGetOperation(

@@ -1,12 +1,12 @@
 package com.huawei.leagueorganizer.utils
 
-import com.huawei.leagueorganizer.data.entity.MatchEntity
-import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.huawei.leagueorganizer.data.model.MatchEntity
+import com.huawei.leagueorganizer.data.model.TeamEntity
 
 object FixtureHelper {
 
     /**
-     * Cyclic algorithm used in function below
+     * I used "cyclic algorithm" to generate fixture. (simple round-robin alg.)
      */
     fun generateFirstHalf(teamList: List<TeamEntity>): Array<Array<MatchEntity?>> {
         var teams = teamList.size

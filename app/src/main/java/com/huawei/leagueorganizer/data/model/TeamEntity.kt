@@ -1,4 +1,4 @@
-package com.huawei.leagueorganizer.data.entity
+package com.huawei.leagueorganizer.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

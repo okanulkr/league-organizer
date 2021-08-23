@@ -1,4 +1,4 @@
-package com.huawei.leagueorganizer.data
+package com.huawei.leagueorganizer.data.datasource
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

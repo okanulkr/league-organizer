@@ -18,12 +18,12 @@ object Preferences {
     }
     
     fun isFirstRun(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("first_run", true)
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.first_run), true)
     }
 
     fun setFirstRun(context: Context, bool: Boolean) {
         PreferenceManager.getDefaultSharedPreferences(context).edit {
-            putBoolean("first_run", bool)
+            putBoolean(context.getString(R.string.first_run), bool)
             apply()
         }
     }

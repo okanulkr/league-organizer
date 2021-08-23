@@ -1,9 +1,9 @@
-package com.huawei.leagueorganizer.presentation.viewmodel
+package com.huawei.leagueorganizer.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.huawei.leagueorganizer.data.entity.MatchEntity
-import com.huawei.leagueorganizer.data.entity.TeamEntity
+import com.huawei.leagueorganizer.data.model.MatchEntity
+import com.huawei.leagueorganizer.data.model.TeamEntity
 import com.huawei.leagueorganizer.data.repository.MatchRepository
 import com.huawei.leagueorganizer.utils.FixtureHelper
 import dagger.hilt.android.lifecycle.HiltViewModel

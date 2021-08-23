@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/teamFragment"
-        android:name="com.huawei.leagueorganizer.presentation.TeamFragment"
+        android:name="com.huawei.leagueorganizer.presentation.fragments.TeamFragment"
         android:label="TeamFragment" >
         <action
             android:id="@+id/action_teamFragment_to_fixtureFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/fixtureFragment"
-        android:name="com.huawei.leagueorganizer.presentation.FixtureFragment"
+        android:name="com.huawei.leagueorganizer.presentation.fragments.FixtureFragment"
         android:label="FixtureFragment" >
         <action
             android:id="@+id/action_fixtureFragment_to_teamFragment"

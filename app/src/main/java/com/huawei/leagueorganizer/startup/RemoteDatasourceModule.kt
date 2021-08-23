@@ -40,6 +40,7 @@ class RemoteDatasourceModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
+    // fake validation below is necessary to get data from self-signed certificated api
     @Singleton
     @Provides
     @SuppressLint("CustomX509TrustManager")

@@ -1,6 +1,5 @@
 package com.huawei.leagueorganizer.data.datasource
 
-import com.huawei.leagueorganizer.data.Resource
 import retrofit2.Response
 import timber.log.Timber
 
