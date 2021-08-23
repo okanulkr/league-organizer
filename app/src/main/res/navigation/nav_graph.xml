@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/fixtureFragment"
         android:name="com.huawei.leagueorganizer.presentation.FixtureFragment"
-        android:label="FixtureFragment" />
+        android:label="FixtureFragment" >
+        <action
+            android:id="@+id/action_fixtureFragment_to_teamFragment"
+            app:destination="@id/teamFragment" />
+    </fragment>
 </navigation>

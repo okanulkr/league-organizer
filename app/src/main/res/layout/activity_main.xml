@@ -14,4 +14,37 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/test_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/draw_fixture"
+        android:src="@drawable/ic_whistle"
+        android:tooltipText="@string/draw_fixture" />
+
+    <com.skydoves.transformationlayout.TransformationLayout
+        android:id="@+id/transformationLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:transformation_duration="550"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:transformation_targetView="@id/test_icon">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sports_soccer"
+            android:tooltipText="@string/draw_fixture"
+            android:contentDescription="@string/draw_fixture"
+            android:layout_margin="16dp" />
+
+    </com.skydoves.transformationlayout.TransformationLayout>
+
 </RelativeLayout>

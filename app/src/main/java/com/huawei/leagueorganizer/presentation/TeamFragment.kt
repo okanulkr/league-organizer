@@ -6,15 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.huawei.leagueorganizer.R
 import com.huawei.leagueorganizer.presentation.adapters.TeamAdapter
 import com.huawei.leagueorganizer.presentation.viewmodel.MatchViewModel
 import com.huawei.leagueorganizer.presentation.viewmodel.TeamViewModel
 import com.huawei.leagueorganizer.utils.Preferences
+import com.skydoves.transformationlayout.TransformationLayout
 import dagger.hilt.android.AndroidEntryPoint
 import it.sephiroth.android.library.numberpicker.doOnProgressChanged
-import kotlinx.android.synthetic.main.fragment_team.view.*
+import kotlinx.android.synthetic.main.fragment_team.*
 
 @AndroidEntryPoint
 class TeamFragment : Fragment(R.layout.fragment_team) {
@@ -39,7 +41,8 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
 
-            fab.setOnClickListener {
+            requireActivity().findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+                requireActivity().findViewById<TransformationLayout>(R.id.transformationLayout).startTransform()
                 teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
                 findNavController().navigate(TeamFragmentDirections.actionTeamFragmentToFixtureFragment())
             }
