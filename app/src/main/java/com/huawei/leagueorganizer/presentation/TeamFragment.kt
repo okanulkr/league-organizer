@@ -25,34 +25,34 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.run {
+        view.run {
 
-            view.number_picker.setProgress(Preferences.getTeamCount(this))
+            number_picker.setProgress(Preferences.getTeamCount(context))
 
             teamViewModel.teams.observe(viewLifecycleOwner) { resource ->
                 resource.data?.let { teamList ->
-                    view.rv_teams.adapter = TeamAdapter(teamList)
                     val title = "${teamList.size} teams at Huawei Co. Ltd."
-                    view.tv_title.text = title
+                    tv_title.text = title
+                    rv_teams.adapter = TeamAdapter(teamList)
                 }
-                view.rv_teams.layoutManager =
-                    GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                rv_teams.layoutManager =
+                    GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
 
             matchViewModel.matches.observe(viewLifecycleOwner) {
                 print(it)
             }
 
-            view.fab.setOnClickListener {
+            fab.setOnClickListener {
                 teamViewModel.teams.value?.data?.let { it1 -> matchViewModel.generateFixture(it1) }
                 findNavController().navigate(TeamFragmentDirections.actionTeamFragmentToFixtureFragment())
             }
 
-            view.number_picker.doOnProgressChanged { numberPicker, progress, _ ->
+            number_picker.doOnProgressChanged { numberPicker, progress, _ ->
 
                 if (progress % 2 != 0) {
                     Snackbar.make(
-                        view.findViewById(android.R.id.content),
+                        findViewById(android.R.id.content),
                         "Count must be even",
                         Snackbar.LENGTH_SHORT
                     ).show()
